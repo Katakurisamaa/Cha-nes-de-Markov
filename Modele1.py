@@ -1,3 +1,4 @@
+# n'oubliez d'installer les différents packages pour le bon fonctionnement du code.
 from sympy import Matrix
 import numpy as np
 import numpy.matlib
@@ -6,7 +7,7 @@ from pandas import DataFrame
 from fractions import Fraction
 
 								    #################################
-							        #         Modèle 1              #
+							            #         Modèle 1              #
 								    #################################
 
 #Fonction de probabilité
