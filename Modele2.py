@@ -1,7 +1,7 @@
 from Modele1 import*
 
 								    #################################
-							        #         Modèle 2              #
+							            #         Modèle 2              #
 								    #################################
 							        
 # modification de la carte chance
