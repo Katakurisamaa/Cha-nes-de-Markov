@@ -137,3 +137,113 @@ state=M[M["Case"].isin(x)]
 #plt.show()
 # Fichier csv contenant le classement des propriétés par ordre décroissant en fonction du numéro
 state_csv=state.to_csv(r'C:\Users\minko\OneDrive\Bureau\projet fin bac\properties.csv',header=True,sep=";",index=False)
+
+
+				#############################################
+				#              Rentabilité                  #
+				#############################################
+											
+#{Titre de propriété:[Prix d'achat, prix de construc° d'une maison/hotel,prix du loyer d'un hotel pour une nuit] }
+m={"RUE LECOURBE":[60,50,450],"Boulevard de Belleville":[60,50,250], "couleur":"brown"}
+bc={"Avenue de la République":[120,50,600],"Rue de Courcelles":[100,50,550],"Rue de Vaugirard":[100,50,550],"couleur":"skyblue"}
+rse={"Rue de Paradis":[160,100,900],"Avenue de Neuilly":[140,100,750],"Boulevard de la Villette":[140,100,750],"couleur":"pink"}
+o={"Place Pigalle":[200,100,1000],"Boulevard Saint-Michel":[180,100,950],"Avenue Mozart":[180,100,950],"couleur":"orange"}
+rge={"Avenue Henri-Martin":[240,150,1100],"Boulevard Malesherbes":[220,150,1050],"Avenue Matignon":[220,150,1050],"couleur":"red"}
+j={"Rue La Fayette":[280,150,1200],"Place de la Bourse":[260,150,1150],"Faubourg Saint-Honoré":[260,150,1150],"couleur":"yellow"}
+v={"Boulevard des Capucines":[320,200,1400],"Avenue Foch":[300,200,1275],"Avenue de Breteuil":[300,200,1275], "couleur":"green"}
+bf={"Rue de la Paix":[400,200,2000],"Avenue Champs-Élysées":[350,200,1500], "couleur":"darkblue"}
+
+# Coût de construction d'une maison
+def home(couleur):
+	global m,bc,rse,o,rge,j,v,bf
+	for keys in couleur:
+		if keys!="couleur":
+			if couleur==m or couleur==bc:
+				couleur[keys].append(couleur[keys][2]/5)
+			if couleur==rse or couleur==o:
+				couleur[keys].append(couleur[keys][2]/5)
+			if couleur==rge or couleur==j:
+				couleur[keys].append(couleur[keys][2]/5)
+			if couleur==v or couleur==bf:
+				couleur[keys].append(couleur[keys][2]/5)
+	return couleur
+
+m=home(m)
+bc=home(bc)
+rse=home(rse)
+o=home(o)
+rge=home(rge)
+j=home(j)
+v=home(v)
+bf=home(bf)
+
+# Calcul de la rentabilité
+def RentHome(couleur,n):
+	"""
+	   n représente le nombre de maisons
+	"""
+	revenu=0.0
+	investissement=0.0
+	w=[i for i in couleur.keys()]
+	col=[i for i in mean()["couleurs"]]
+	for keys in w:
+		if keys!="couleur":
+			investissement+=couleur[keys][0]*n+couleur[keys][1]*n
+			p=[i for i in mean()[mean()["couleurs"]==couleur["couleur"]]["probability"]]
+			if n==4:
+				revenu+=couleur[keys][3]*2*4*p[0]
+			else:
+				revenu+=couleur[keys][3]*n*p[0]
+	return revenu/investissement
+f=[m,bc,rse,o,rge,j,v,bf]
+matrice=[]
+for i in f:
+	matrice.append(RentHome(i,4))
+
+def RentHotel(couleur):
+	revenu=0.0
+	investissement=0.0
+	w=[i for i in couleur.keys()]
+	col=[i for i in mean()["couleurs"]]
+	for keys in w:
+		if keys!="couleur":
+			investissement+=couleur[keys][0]*5+couleur[keys][1]*5
+			p=[i for i in mean()[mean()["couleurs"]==couleur["couleur"]]["probability"]]
+			revenu+=couleur[keys][2]*p[0]*(len(w)-1)
+	return revenu/investissement
+mat=[]
+for i in f:
+	mat.append(RentHotel(i))
+def RentGare(name,n):
+	"""
+	   name: peut être la liste des gares, ou le nom de la gare (dans ce cas mettre [name])
+	      n: est le nombre de gares que vous possédez.
+	"""
+	global Gare
+	G=[i for i in Gare]
+	d={1:25,2:50,3:100,4:200}
+	return prob(name)*d[n]/200
+mat1=[RentGare(Gare,4)]
+def RentCompagnie(name,n):
+	"""
+	   name: peut être la liste des compagnies, ou le nom de la compagnie (dans ce cas mettre [name])
+	      n: est le nombre de compagnies que vous possédez.
+	"""
+	global compagnies
+	d={1:4*150,2:10*150}
+	return prob(name)*d[n]/(3*150)
+mat2=[RentCompagnie(compagnies,2)]
+Matrice=np.array(matrice+mat1+mat2)
+rentability=DataFrame(data=np.transpose(np.array(["Marron","Bleu Ciel","Rose","Orange","Rouge","Jaune",
+"Vert","Bleu Foncé","Gares","Compagnies"])),columns=["Propriété"])
+rentability["Rentabilité"]=Matrice
+rentability["Numéro de la case"]=["1,3","6,8,9","11,13,14","16,18,19","21,23,24","26,27,29","31,32,34","37,39","5,15,25,35",
+								  "12,28"]
+rentability=rentability.sort_values(by=["Rentabilité"], axis=0, ascending=False)
+
+rent=DataFrame(data=np.transpose(np.array(["Marron","Bleu Ciel","Rose","Orange","Rouge","Jaune",
+"Vert","Bleu Foncé"])),columns=["Propriété"])
+Matrice=np.array(mat)
+rent["Rentabilité"]=Matrice
+rent["Numéro de la case"]=["1,3","6,8,9","11,13,14","16,18,19","21,23,24","26,27,29","31,32,34","37,39"]
+rent=rent.sort_values(by=["Rentabilité"], axis=0, ascending=False)
