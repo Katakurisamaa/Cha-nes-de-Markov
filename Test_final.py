@@ -43,7 +43,7 @@ def afficher(P,a):
 	return Q(P,[30])
 
 								    #################################
-							        #       Test  Modèle 2          #
+							            #       Test  Modèle 2          #
 								    #################################
 # Afficher la matrice de taille 42x42
 #####################################
@@ -57,7 +57,7 @@ def afficher(P,a):
 #print(Matrix(som(Q(modele2(q),[30]))))
 
 								    #################################
-							        #       Test  Modèle 3          #
+							            #       Test  Modèle 3          #
 								    #################################
 # modifiez la valeur de a ici:
 ##############################
@@ -78,7 +78,7 @@ a=Fraction(1,1000)
 
 
 								    #################################
-							        #       Test  Modèle 4          #
+							            #       Test  Modèle 4          #
 								    #################################
 # Modifiez la valeur de a ici:
 ################################
