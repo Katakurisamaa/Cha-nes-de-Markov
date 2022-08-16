@@ -1,9 +1,9 @@
 from Modele3 import*
 
 								    #################################
-							        #          Modèle 4             #
-							        # Introduction de la règle des  #
-							        #   3 doubles consécutifs       #
+							            #          Modèle 4             #
+							            # Introduction de la règle des  #
+							            #   3 doubles consécutifs       #
 								    #################################
 							        
 # Cette fonction modifie les probabilités pour les valeurs paires
