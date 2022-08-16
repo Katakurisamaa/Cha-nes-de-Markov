@@ -1,9 +1,9 @@
 from Modele2 import*
 
 								    #################################
-							        #          Modèle 3             #
-							        # Introduction des prisons vir- #
-							        #            tuelles            #
+							            #          Modèle 3             #
+							            # Introduction des prisons vir- #
+							            #            tuelles            #
 								    #################################
 							        
 							        
